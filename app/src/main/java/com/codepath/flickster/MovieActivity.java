@@ -1,6 +1,7 @@
 package com.codepath.flickster;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
@@ -23,6 +24,8 @@ public class MovieActivity extends AppCompatActivity {
     ArrayList<Movie> movies;
     MovieArrayAdapter movieAdapter;
     ListView lvItems;
+    AsyncHttpClient client;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +37,33 @@ public class MovieActivity extends AppCompatActivity {
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
 
-        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+        client = new AsyncHttpClient();
+        fetchTimelineAsync(false);
 
-        AsyncHttpClient client = new AsyncHttpClient();
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTimelineAsync(true);
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
+
+    private void fetchTimelineAsync(final boolean refresh) {
+        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
         client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray movieJsonResults = null;
+                if (refresh) {
+                    movieAdapter.clear();
+                }
 
+                JSONArray movieJsonResults = null;
                 try {
                     movieJsonResults = response.getJSONArray("results");
                     movies.addAll(Movie.fromJSONArray(movieJsonResults));
@@ -50,6 +71,10 @@ public class MovieActivity extends AppCompatActivity {
                     Log.d("DEBUG", movies.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                if (refresh) {
+                    swipeContainer.setRefreshing(false);
                 }
             }
 
@@ -59,4 +84,5 @@ public class MovieActivity extends AppCompatActivity {
             }
         });
     }
+
 }
