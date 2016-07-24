@@ -1,20 +1,65 @@
 package com.codepath.flickster;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.codepath.flickster.models.Movie;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class VideoActivity extends YouTubeBaseActivity {
     public static final String YT_API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
+    String videoId;
+    AsyncHttpClient client;
+    ArrayList<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+
+        movies = new ArrayList<>();
+
+        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+
+        client = new AsyncHttpClient();
+        client.get(url, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray movieJsonResults;
+                try {
+                    movieJsonResults = response.getJSONArray("results");
+                    movies.addAll(Movie.fromJSONArray(movieJsonResults));
+                    Log.d("DEBUG", movies.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+
+
+
+
+
+
 
         YouTubePlayerView youTubePlayerView =
                 (YouTubePlayerView) findViewById(R.id.player);
@@ -29,7 +74,8 @@ public class VideoActivity extends YouTubeBaseActivity {
                         //youTubePlayer.cueVideo("5xVh-7ywKpE");
                         // or to play immediately
                         youTubePlayer.setFullscreen(true);
-                        youTubePlayer.loadVideo("5xVh-7ywKpE");
+                        youTubePlayer.loadVideo(videoId);
+//                        youTubePlayer.loadVideo("5xVh-7ywKpE");
                     }
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,
