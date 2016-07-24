@@ -8,12 +8,15 @@ import java.util.ArrayList;
 
 public class Movie {
 
+    String id;
     String posterPath;
     String backdropPath;
     String originalTitle;
     String overview;
     Double voteAverage;
     Double popularity;
+
+    public String getId() { return id; }
 
     public Double getPopularity() {
         return popularity;
@@ -38,6 +41,7 @@ public class Movie {
     public double getVoteAverage() { return voteAverage; }
 
     public Movie(JSONObject jsonObject) throws JSONException {
+        this.id = jsonObject.getString("id");
         this.posterPath = jsonObject.getString("poster_path");
         this.backdropPath = jsonObject.getString("backdrop_path");
         this.originalTitle = jsonObject.getString("original_title");

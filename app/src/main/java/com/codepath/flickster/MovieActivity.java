@@ -57,6 +57,12 @@ public class MovieActivity extends AppCompatActivity {
         startActivity(detail);
     }
 
+    public void playTrailer(View v) {
+        Intent video = new Intent(MovieActivity.this, VideoActivity.class);
+        Movie i = (Movie) lvItems.getItemAtPosition(lvItems.getPositionForView(v));
+        startActivity(video);
+    }
+
     private void setupSwipeContainer() {
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

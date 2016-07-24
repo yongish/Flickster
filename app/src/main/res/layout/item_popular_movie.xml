@@ -17,7 +17,8 @@
         android:layout_below="@+id/tvPopularTitle"
         android:scaleType="centerInside"
         android:id="@+id/ivBackdrop"
-        tools:src="@mipmap/ic_launcher"/>
+        tools:src="@mipmap/ic_launcher"
+        android:onClick="playTrailer" />
 
     <Button
         android:layout_width="wrap_content"
