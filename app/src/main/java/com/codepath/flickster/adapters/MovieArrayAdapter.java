@@ -24,6 +24,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     public static class PopularViewHolder {
         ImageView ivBackdrop;
+        TextView tvPopularTitle;
     }
     public static class LessPopularViewHolder {
         ImageView ivImage;
@@ -60,12 +61,15 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                     v = vi.inflate(R.layout.item_popular_movie, parent, false);
                     popularViewHolder = new PopularViewHolder();
                     popularViewHolder.ivBackdrop = (ImageView) v.findViewById(R.id.ivBackdrop);
+                    popularViewHolder.tvPopularTitle = (TextView) v.findViewById(R.id.tvPopularTitle);
                     v.setTag(popularViewHolder);
                 } else {
                     popularViewHolder = (PopularViewHolder) v.getTag();
                 }
 
                 popularViewHolder.ivBackdrop.setImageResource(0);
+                // populate data
+                popularViewHolder.tvPopularTitle.setText(movie.getOriginalTitle());
 
                 Picasso.with(getContext()).load(movie.getBackdropPath()).fit().centerCrop()
                         .placeholder(R.drawable.default_poster).error(R.drawable.noposter)
@@ -81,7 +85,6 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                     lessPopularViewHolder = new LessPopularViewHolder();
                     lessPopularViewHolder.ivImage = (ImageView) v.findViewById(R.id.ivImage);
                     lessPopularViewHolder.tvTitle = (TextView) v.findViewById(R.id.tvTitle);
-                    lessPopularViewHolder.tvOverview = (TextView) v.findViewById(R.id.tvOverview);
                     v.setTag(lessPopularViewHolder);
                 } else {
                     lessPopularViewHolder = (LessPopularViewHolder) v.getTag();
@@ -91,7 +94,6 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 lessPopularViewHolder.ivImage.setImageResource(0);
                 // populate data
                 lessPopularViewHolder.tvTitle.setText(movie.getOriginalTitle());
-                lessPopularViewHolder.tvOverview.setText(movie.getOverview());
 
                 Picasso.with(getContext()).load(movie.getPosterPath()).fit().centerCrop()
                         .placeholder(R.drawable.default_poster).error(R.drawable.noposter)

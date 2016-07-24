@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.flickster.adapters.MovieArrayAdapter;
@@ -43,25 +42,19 @@ public class MovieActivity extends AppCompatActivity {
         movies = new ArrayList<>();
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
-        setupListViewListener();
 
         fetchTimelineAsync(false);
 
         setupSwipeContainer();
     }
 
-    private void setupListViewListener() {
-        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detail = new Intent(MovieActivity.this, DetailActivity.class);
-                Movie i = (Movie) lvItems.getItemAtPosition(position);
-                detail.putExtra("rating", String.valueOf(i.getVoteAverage() / 2));
-                detail.putExtra("popularity", i.getPopularity());
-                detail.putExtra("synopsis", i.getOverview());
-                startActivity(detail);
-            }
-        });
+    public void openDetails(View v) {
+        Intent detail = new Intent(MovieActivity.this, DetailActivity.class);
+        Movie i = (Movie) lvItems.getItemAtPosition(lvItems.getPositionForView(v));
+        detail.putExtra("rating", String.valueOf(i.getVoteAverage() / 2));
+        detail.putExtra("popularity", i.getPopularity());
+        detail.putExtra("synopsis", i.getOverview());
+        startActivity(detail);
     }
 
     private void setupSwipeContainer() {
@@ -110,5 +103,4 @@ public class MovieActivity extends AppCompatActivity {
             }
         });
     }
-
 }
