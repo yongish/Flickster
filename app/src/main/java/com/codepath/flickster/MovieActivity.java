@@ -1,10 +1,13 @@
 package com.codepath.flickster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.flickster.adapters.MovieArrayAdapter;
@@ -40,10 +43,28 @@ public class MovieActivity extends AppCompatActivity {
         movies = new ArrayList<>();
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
+        setupListViewListener();
 
-        client = new AsyncHttpClient();
         fetchTimelineAsync(false);
 
+        setupSwipeContainer();
+    }
+
+    private void setupListViewListener() {
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detail = new Intent(MovieActivity.this, DetailActivity.class);
+                Movie i = (Movie) lvItems.getItemAtPosition(position);
+                detail.putExtra("rating", String.valueOf(i.getVoteAverage() / 2));
+                detail.putExtra("popularity", i.getPopularity());
+                detail.putExtra("synopsis", i.getOverview());
+                startActivity(detail);
+            }
+        });
+    }
+
+    private void setupSwipeContainer() {
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,6 +81,7 @@ public class MovieActivity extends AppCompatActivity {
     private void fetchTimelineAsync(final boolean refresh) {
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
+        client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -13,6 +13,11 @@ public class Movie {
     String originalTitle;
     String overview;
     Double voteAverage;
+    Double popularity;
+
+    public Double getPopularity() {
+        return popularity;
+    }
 
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
@@ -38,6 +43,7 @@ public class Movie {
         this.originalTitle = jsonObject.getString("original_title");
         this.overview = jsonObject.getString("overview");
         this.voteAverage = jsonObject.getDouble("vote_average");
+        this.popularity = jsonObject.getDouble("popularity");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array) {
