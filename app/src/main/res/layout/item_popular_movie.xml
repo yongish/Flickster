@@ -11,21 +11,33 @@
         android:id="@+id/tvPopularTitle"
         android:layout_alignParentTop="true" />
 
-    <ImageView
+    <FrameLayout
+        android:id="@+id/video_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPopularTitle"
-        android:scaleType="centerInside"
-        android:id="@+id/ivBackdrop"
-        tools:src="@mipmap/ic_launcher"
-        android:onClick="playTrailer" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPopularTitle"
+            android:scaleType="centerInside"
+            android:id="@+id/ivBackdrop"
+            tools:src="@mipmap/ic_launcher"
+            android:onClick="playTrailer" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:src="@drawable/player_play"
+            android:onClick="playTrailer" />
+    </FrameLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Details"
         android:id="@+id/btnPopularDetails"
-        android:layout_below="@+id/ivBackdrop"
+        android:layout_below="@+id/video_frame"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="openDetails" />
