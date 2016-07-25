@@ -40,7 +40,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](walkthrough.mp4?raw=true "Flickster")
+![Video Walkthrough](walkthrough.gif?raw=true "Flickster")
 
 Video created with [Mobizen Screen Recorder](https://play.google.com/store/apps/details?id=com.rsupport.mvagent&hl=en).
 
