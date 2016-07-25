@@ -9,20 +9,14 @@ import java.util.List;
 
 public class Trailer {
 
-    String key;
-    String name;
+    String source;
 
-    public String getKey() {
-        return key;
-    }
-
-    public String getName() {
-        return name;
+    public String getSource() {
+        return source;
     }
 
     public Trailer(JSONObject jsonObject) throws JSONException {
-        this.key = jsonObject.getString("key");
-        this.name = jsonObject.getString("name");
+        this.source = jsonObject.getString("source");
     }
 
     public static List<Trailer> fromJSONArray(JSONArray array) {

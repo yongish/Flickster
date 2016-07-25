@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.codepath.flickster.models.Movie;
 import com.codepath.flickster.models.Trailer;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -23,7 +22,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class VideoActivity extends YouTubeBaseActivity {
     public static final String YT_API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
-    String videoId;
     AsyncHttpClient client;
     ArrayList<Trailer> trailers;
 
@@ -32,19 +30,20 @@ public class VideoActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-        movies = new ArrayList<>();
+        String id = getIntent().getStringExtra("id");
+        trailers = new ArrayList<>();
 
-        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+        String url = "https://api.themoviedb.org/3/movie/" + id + "/trailers?api_key=" + YT_API_KEY;
 
         client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray movieJsonResults;
+                JSONArray trailersJsonResults;
                 try {
-                    movieJsonResults = response.getJSONArray("results");
-                    movies.addAll(Movie.fromJSONArray(movieJsonResults));
-                    Log.d("DEBUG", movies.toString());
+                    trailersJsonResults = response.getJSONArray("youtube");
+                    trailers.addAll(Trailer.fromJSONArray(trailersJsonResults));
+                    Log.d("DEBUG", trailers.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -63,7 +62,8 @@ public class VideoActivity extends YouTubeBaseActivity {
                                 //youTubePlayer.cueVideo("5xVh-7ywKpE");
                                 // or to play immediately
                                 youTubePlayer.setFullscreen(true);
-                                youTubePlayer.loadVideo(videoId);
+                                youTubePlayer.loadVideo(trailers.get(0).getSource());
+//                                youTubePlayer.loadVideo(videoId);
                             }
                             @Override
                             public void onInitializationFailure(YouTubePlayer.Provider provider,
