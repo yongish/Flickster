@@ -48,7 +48,6 @@ public class VideoActivity extends YouTubeBaseActivity {
                     e.printStackTrace();
                 }
 
-
                 YouTubePlayerView youTubePlayerView =
                         (YouTubePlayerView) findViewById(R.id.player);
 
@@ -57,13 +56,8 @@ public class VideoActivity extends YouTubeBaseActivity {
                             @Override
                             public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                                 YouTubePlayer youTubePlayer, boolean b) {
-
-                                // do any work here to cue video, play video, etc.
-                                //youTubePlayer.cueVideo("5xVh-7ywKpE");
-                                // or to play immediately
                                 youTubePlayer.setFullscreen(true);
                                 youTubePlayer.loadVideo(trailers.get(0).getSource());
-//                                youTubePlayer.loadVideo(videoId);
                             }
                             @Override
                             public void onInitializationFailure(YouTubePlayer.Provider provider,
@@ -78,8 +72,5 @@ public class VideoActivity extends YouTubeBaseActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
-
-
-
     }
 }

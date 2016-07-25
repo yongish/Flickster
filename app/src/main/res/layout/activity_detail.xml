@@ -9,21 +9,58 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.codepath.flickster.DetailActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:id="@+id/ivUnpopularBackdrop"
+        tools:src="@mipmap/ic_launcher"
+        android:onClick="playTrailer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="User Rating"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/ivUnpopularBackdrop"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <RatingBar
         android:max="5"
         android:stepSize="0.01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Popularity"
+        android:id="@+id/textView"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        tools:text="27.786423"
+        android:id="@+id/tvPopularity"
+        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ScrollView
         android:layout_below="@+id/tvPopularity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,35 +88,4 @@
                 android:layout_alignParentStart="true" />
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Popularity"
-        android:id="@+id/textView"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        tools:text="27.786423"
-        android:id="@+id/tvPopularity"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User Rating"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
 </RelativeLayout>

@@ -57,6 +57,9 @@ public class MovieActivity extends AppCompatActivity {
     public void openDetails(View v) {
         Intent detail = new Intent(MovieActivity.this, DetailActivity.class);
         Movie i = (Movie) lvItems.getItemAtPosition(lvItems.getPositionForView(v));
+
+        detail.putExtra("id", i.getId());
+        detail.putExtra("backdropPath", i.getBackdropPath());
         detail.putExtra("rating", String.valueOf(i.getVoteAverage() / 2));
         detail.putExtra("popularity", i.getPopularity());
         detail.putExtra("synopsis", i.getOverview());
@@ -64,26 +67,6 @@ public class MovieActivity extends AppCompatActivity {
     }
 
     public void playTrailer(View v) {
-        // trailers.size() is 0 if the code below is uncommented. It should be 6.
-//        String url = "https://api.themoviedb.org/3/movie/209112/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-//        client.get(url, new JsonHttpResponseHandler(){
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                JSONArray trailersJsonResults;
-//                try {
-//                    trailersJsonResults = response.getJSONArray("results");
-//                    trailers.addAll(Trailer.fromJSONArray(trailersJsonResults));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                super.onFailure(statusCode, headers, responseString, throwable);
-//            }
-//        });
-
         Intent video = new Intent(MovieActivity.this, VideoActivity.class);
         Movie i = (Movie) lvItems.getItemAtPosition(lvItems.getPositionForView(v));
         video.putExtra("id", i.getId());
@@ -134,25 +117,5 @@ public class MovieActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
-
-        // trailers.size() is 6 if the code below is uncommented.
-//        url = "https://api.themoviedb.org/3/movie/209112/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-//        client.get(url, new JsonHttpResponseHandler(){
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                JSONArray trailersJsonResults;
-//                try {
-//                    trailersJsonResults = response.getJSONArray("results");
-//                    trailers.addAll(Trailer.fromJSONArray(trailersJsonResults));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                super.onFailure(statusCode, headers, responseString, throwable);
-//            }
-//        });
     }
 }
