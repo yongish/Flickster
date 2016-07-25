@@ -46,6 +46,8 @@ Video created with [Mobizen Screen Recorder](https://play.google.com/store/apps/
 
 ## Notes
 
+6 hours spent on getting correct video trailer to work. Thanks to [Nathan](https://github.com/nesquena) for guidance on AsyncHttpClient.
+
 Rounded corners transformation not in Square Picasso. Found in 3rd party Picasso library.
 
 Unable to implement data binding. Making appropriate changes to build.gradle did not cause ActivityMainBinding class to generate unlike stated in CodePath guide. Also attemped one way data binding, but the data was not loaded from the object to the view.
