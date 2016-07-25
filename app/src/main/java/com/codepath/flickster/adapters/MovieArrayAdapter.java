@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     final int POPULAR = 5;
@@ -29,7 +31,6 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     public static class LessPopularViewHolder {
         ImageView ivImage;
         TextView tvTitle;
-        TextView tvOverview;
     }
 
     public int getViewTypeCount() {
@@ -73,6 +74,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
                 Picasso.with(getContext()).load(movie.getBackdropPath()).fit().centerCrop()
                         .placeholder(R.drawable.default_poster).error(R.drawable.noposter)
+                        .transform(new RoundedCornersTransformation(15, 15))
                         .into(popularViewHolder.ivBackdrop);
                 return v;
             case 1:
@@ -97,6 +99,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
                 Picasso.with(getContext()).load(movie.getPosterPath()).fit().centerCrop()
                         .placeholder(R.drawable.default_poster).error(R.drawable.noposter)
+                        .transform(new RoundedCornersTransformation(15, 15))
                         .into(lessPopularViewHolder.ivImage);
                 // return the view
                 return v;
