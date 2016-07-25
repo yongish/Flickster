@@ -2,7 +2,7 @@
 
 Flickster shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **X** hours spent in total
+Time spent: 25 hours spent in total
 
 ## User Stories
 
@@ -28,30 +28,33 @@ The following **bonus** features are implemented:
     * [x] Overlay a play icon for videos that can be played.
     * [x] More popular movies should start a separate activity that plays the video immediately.
     * [x] Less popular videos rely on the detail page should show ratings and a YouTube preview.
-* [x] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
+* [ ] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
 * [x] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
 * [x] Apply rounded corners for the poster or background images using [Picasso transformations](https://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#other-transformations)
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [x] Put synopsis in details page. Used button for details page so backdrop can be used to play trailer.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](Flickster.gif?raw=true "Flickster")
+![Video Walkthrough](walkthrough.mp4?raw=true "Flickster")
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+Video created with [Mobizen Screen Recorder](https://play.google.com/store/apps/details?id=com.rsupport.mvagent&hl=en).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Rounded corners transformation not in Square Picasso. Found in 3rd party Picasso library.
+
+Unable to implement data binding. Making appropriate changes to build.gradle did not cause ActivityMainBinding class to generate unlike stated in CodePath guide. Also attemped one way data binding, but the data was not loaded from the object to the view.
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
-- [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Picasso Transformations](https://github.com/wasabeef/picasso-transformations) - Image loading and caching library for Android
+- [ButterKnife](http://jakewharton.github.io/butterknife/) - Image loading and caching library for Android
 
 ## License
 
